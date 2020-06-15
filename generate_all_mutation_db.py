@@ -260,8 +260,8 @@ def get_new_sequence(dfname,dbname,rna_db,protein_db,dataset_name):
         
         if(k in protein_id_dict.keys()):
             k_cnt+=1
-            if(k_cnt%1000==0):
-                print(k_cnt)
+#            if(k_cnt%1000==0):
+#                print(k_cnt)
             pid=protein_id_dict[k][0]
             gid=protein_id_dict[k][1]
             
@@ -399,7 +399,7 @@ def get_new_sequence(dfname,dbname,rna_db,protein_db,dataset_name):
     print("The number of homozygous is "+str(hom_cnt)) 
     print("The number of heterozygous is "+str(het_cnt))
     #return my_seqs
-    handle=open("../data/"+dataset_name+"/"+version+"/"+dataset_name+"_all_mutation_"+version+".fasta","w")
+    handle=open(dataset_name+"_all_mutation_"+version+".fasta","w")
     hom_seq=0
     het_seq=0
     hom_het_seq=0
