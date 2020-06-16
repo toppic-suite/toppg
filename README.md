@@ -2,6 +2,8 @@
 
 ## Generate the customized protein database for MS identification
 
+Note: TopPG only support ENSEMBL databases, please use the input files downloaded from ENSEMBL or GENCODE.
+
 #### 0. Prerequisite
 Python 3.X and corresponding version of Pandas, Gffutils, Biopython and  Bedtools package.
 
