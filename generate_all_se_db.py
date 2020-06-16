@@ -76,7 +76,7 @@ def get_trans_records(dbname):
                     protein_id.append(record.attributes['protein_id'][0])
                     e+=1
     
-    print(e)
+    #print(e)
     exon_records={'chr':chromosome,'strand':strand,'start':start,'end':end,'trans_id':trans_id,\
                       'exon_number':exon_number,'exon_id':exon_id,'protein_id':protein_id,'gene_id':gene_id}
     trans_records=pd.DataFrame(exon_records,columns=['chr','strand','start','end','trans_id','exon_number',\
@@ -128,7 +128,7 @@ def get_splicing_event_dict(df_SE,records): #df of SE merge result
     print('Annotation records are ready.')
     chr_name=set(chromosome)
     chr_count=dict((c,chromosome.count(c)) for c in chr_name)
-    print(chr_count)
+    #print(chr_count)
     chr_count_name=[n for n in sorted(chr_count.keys())]
     chr_count_list=[chr_count[l] for l in sorted(chr_count.keys())]
     chr_index=dict((c,(0,0)) for c in chr_name)
@@ -139,7 +139,7 @@ def get_splicing_event_dict(df_SE,records): #df of SE merge result
             chr_index[chr_count_name[ch]]=(sum(chr_count_list[h] for h in range(0,ch)),\
                                      sum(chr_count_list[h] for h in range(0,ch+1))-1)
     del chr_index['chrM']
-    print(chr_index)
+    #print(chr_index)
     
     def chr_binary_search(chro,strand,start,end):
         low=0
@@ -187,8 +187,8 @@ def get_transcript_exon_dict(records):
     
     i=0
     while(i<records.shape[0]):
-        if(i%10000==0):
-            print(i)
+#        if(i%10000==0):
+#            print(i)
         k=records.iloc[i]['trans_id']
         
         if(records.iloc[i]['strand']=='+'):
@@ -277,15 +277,15 @@ def generate_se_sequence(df_SE,dbname,rna_db,dataset_name):
     
     splicing_event_dict=get_splicing_event_dict(df_SE,records)
     print("splicing events dict ready")
-    print(len(list(splicing_event_dict.items())))
-    for x in list(splicing_event_dict.items())[0:3]:
-        print(x)
+#    print(len(list(splicing_event_dict.items())))
+#    for x in list(splicing_event_dict.items())[0:3]:
+#        print(x)
         
     trans_exon_dict=get_transcript_exon_dict(records)
     print("transcript exon dict ready")
-    print(len(list(trans_exon_dict.items())))
-    for x in list(trans_exon_dict.items())[0:3]:
-        print(x)
+#    print(len(list(trans_exon_dict.items())))
+#    for x in list(trans_exon_dict.items())[0:3]:
+#        print(x)
     #print(len(list(exon_coordinate_dict.items())))
     #print(len(list(trans_exon_position_dict.items())))
     
@@ -302,8 +302,8 @@ def generate_se_sequence(df_SE,dbname,rna_db,dataset_name):
     
     for k in splicing_event_dict.keys():
         cnt+=1
-        if(cnt%1000==0):
-            print(cnt)
+#        if(cnt%1000==0):
+#            print(cnt)
         down_id=splicing_event_dict[k][0]
         skip_id=splicing_event_dict[k][1]
         up_id=splicing_event_dict[k][2]
@@ -422,14 +422,14 @@ def generate_se_sequence(df_SE,dbname,rna_db,dataset_name):
                
     print("The number of sequences generated is "+str(len(my_seqs)))
     
-    handle=open("../data/"+dataset_name+"/"+dataset_name+"_all_se_db"+".fasta","w")
+    handle=open(dataset_name+"_all_se_db"+".fasta","w")
     for sequence in my_seqs:
         SeqIO.write(sequence,handle,"fasta")
     handle.close()
-    handle_trans=open("../data/"+dataset_name+"/"+dataset_name+"_all_se_transcripts"+".fasta","w")
-    for sequence in my_transcripts:
-        SeqIO.write(sequence,handle_trans,"fasta")
-    handle_trans.close()
+#    handle_trans=open("../data/"+dataset_name+"/"+dataset_name+"_all_se_transcripts"+".fasta","w")
+#    for sequence in my_transcripts:
+#        SeqIO.write(sequence,handle_trans,"fasta")
+#    handle_trans.close()
     #return my_seqs
 
 #dbname="../data/gencode.v28.basic.annotation.gff3"
