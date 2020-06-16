@@ -240,7 +240,27 @@ def get_trans_seq_dict(rna_db):
     
     trans_seq_dict={}
     trans_coding_dict={}#while translating, start from coding_start-1
-
+    
+    for correct in rna_seqs:
+        tmp=correct.id
+        flag=tmp.find("|")
+        mrna_id=tmp[:flag]
+        tmp=tmp[flag+1:]
+        cds=tmp.find('CDS:')
+        if(cds==-1):
+            print("The format of file of parameter -r(--rna) is incorrect!")
+            return 0
+        tmp=tmp[cds:]
+        cds_end=tmp.find('|')
+        tmp=tmp[tmp.find(':')+1:cds_end]
+        
+        split_flag=tmp.find('-')
+        if(split_flag==-1):
+            print("The format of file of parameter -r(--rna) is incorrect!")
+            return 0
+        coding_start=int(tmp[:split_flag])
+        coding_end=int(tmp[split_flag+1:])
+        
     for seq in rna_seqs:
         tmp=seq.id
         flag=tmp.find("|")
